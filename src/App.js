@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import ContentEditable from "react-contenteditable";
 
 function App() {
+  const [text, setText] = useState("");
+
+  const handle = (event) => {
+    setText(event.target.value);
+  };
+
+  const bold = (event) => {
+    document.execCommand("bold");
+    event.preventDefault();
+  };
+  const italic = (event) => {
+    document.execCommand("italic");
+    event.preventDefault();
+  };
+  const underline = (event) => {
+    document.execCommand("underline");
+    event.preventDefault();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="toolbar">
+        <button id="bold" onClick={bold}>
+          B
+        </button>
+        <button id="italic" onClick={italic}>
+          I
+        </button>
+        <button id="underline" onClick={underline}>
+          U
+        </button>
+      </div>
+      <ContentEditable className="editor" html={text} onChange={handle} />
     </div>
   );
 }
